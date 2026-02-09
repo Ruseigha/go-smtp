@@ -79,7 +79,6 @@ func main() {
 	from := os.Getenv("SMTP_FROM")
 	password := os.Getenv("SMTP_PASSWORD")
 
-
 	// Read logo image (create a simple 1x1 PNG if file doesn't exist)
 	logoData, err := os.ReadFile("logo.png")
 	if err != nil {
@@ -96,7 +95,6 @@ func main() {
 			0x42, 0x60, 0x82,
 		}
 	}
-
 
 	// Create email
 	email := HTMLEmail{
