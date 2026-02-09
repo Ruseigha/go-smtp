@@ -19,22 +19,19 @@ func readResponse(reader *bufio.Reader) string {
 	return response
 }
 
-
 func sendCommand(conn net.Conn, reader *bufio.Reader, command string) string {
 	fmt.Fprintf(conn, "%s\r\n", command)
 	fmt.Printf(">>> %s\n", command)
 	return readResponse(reader)
 }
 
-
-func main()  {
+func main() {
 	_ = godotenv.Load()
 	smtpHost := os.Getenv("SMTP_HOST")
 	smtpPort := os.Getenv("SMTP_PORT")
 	email := os.Getenv("SMTP_FROM")
 	password := os.Getenv("SMTP_PASSWORD")
 	to := "s.rufus.cse2023075@student.oauife.edu.ng"
-
 
 	// Connect
 	fmt.Println("🔌 Connecting to SMTP server...")
@@ -51,7 +48,6 @@ func main()  {
 
 	// EHLO
 	sendCommand(conn, reader, "EHLO localhost")
-
 
 	// Read capabilities
 	for {
@@ -82,7 +78,7 @@ func main()  {
 	// Format: \0username\0password (base64 encoded)
 	auth := fmt.Sprintf("\x00%s\x00%s", email, password)
 	authEncoded := base64.StdEncoding.EncodeToString([]byte(auth))
-	
+
 	fmt.Println(">>> AUTH PLAIN [base64 credentials]")
 	fmt.Fprintf(tlsConn, "AUTH PLAIN %s\r\n", authEncoded)
 	response = readResponse(reader)

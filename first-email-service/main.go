@@ -55,12 +55,12 @@ func sendEmail(config *SMTPConfig, to []string, htmlBody string) error {
 	// Build email message
 	message := []byte(
 		"From: " + config.From + "\r\n" +
-		"To: " + to[0] + "\r\n" +
-		"Subject: " + subject + "\r\n" +
-		"MIME-Version: 1.0\r\n" +
-		"Content-Type: text/html; charset=UTF-8\r\n" +
-		"\r\n" +
-		htmlBody,
+			"To: " + to[0] + "\r\n" +
+			"Subject: " + subject + "\r\n" +
+			"MIME-Version: 1.0\r\n" +
+			"Content-Type: text/html; charset=UTF-8\r\n" +
+			"\r\n" +
+			htmlBody,
 	)
 
 	// Set up authentication
@@ -68,7 +68,7 @@ func sendEmail(config *SMTPConfig, to []string, htmlBody string) error {
 
 	// Send email
 	err := smtp.SendMail(config.Host+":"+config.Port, auth, config.From, to, message)
-	
+
 	return err
 }
 
